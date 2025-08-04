@@ -1,0 +1,11 @@
+HYBRID_DLRM 3
+9
+Embedding	-1	54	ALLTOALL	10240000	1	NONE	0	1	NONE	0	10
+Linear_Bottom1	-1	47	None	0	1	NONE	0	1	NONE	0	10
+Linear_Bottom2	-1	1861	None	0	1	NONE	0	1	NONE	0	10
+Linear_Bottom3	-1	232	None	0	1	NONE	0	1	NONE	0	10
+Interaction	-1	32	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top1	-1	727	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top2	-1	7447	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top3	-1	7447	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top4	-1	7	None	0	1	NONE	0	1	NONE	0	10

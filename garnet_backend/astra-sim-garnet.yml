@@ -1,0 +1,21 @@
+name: astra-sim-garnet
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=2.7
+  - cmake
+  - make
+  - m4
+  - zlib
+  - scons=3.1.2
+  - boost
+  - protobuf=3.6.1
+  - libprotobuf=3.6.1
+  - swig=4.0.1
+  - graphviz
+  - pygraphviz
+  - pango 
+  - pip
+  - pip:
+      - pydot==1.4.2

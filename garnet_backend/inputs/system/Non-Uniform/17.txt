@@ -1,0 +1,13 @@
+scheduling-policy: LIFO 
+endpoint-delay: 1
+active-chunks-per-dimension: 1
+preferred-dataset-splits: 1
+boost-mode: 0
+all-reduce-implementation: ring_ring_ring
+all-gather-implementation: ring_ring_ring
+reduce-scatter-implementation: ring_ring_ring
+all-to-all-implementation: ring_ring_ring
+collective-optimization: localBWAware
+intra-dimension-scheduling: SCF
+inter-dimension-scheduling: onestage
+non_uniform: 17

@@ -1,0 +1,16 @@
+{
+    "topology-name": "Hierarchical",
+    "topologies-per-dim": ["Ring", "Ring", "Ring", "Ring"],
+    "dimension-type": ["N", "N", "N", "N"],
+    "dimensions-count": 4,
+    "units-count": [6, 6, 6, 6],
+    "links-count": [2, 2, 2, 2],
+    "link-latency": [100, 100, 100, 100],
+    "link-bandwidth": [32, 32, 32, 32],
+    "nic-latency": [0, 0, 0, 0],
+    "router-latency": [0, 0, 0, 0],
+    "hbm-latency": [500, 500, 500, 500],
+    "hbm-bandwidth": [370, 370, 370, 370],
+    "link-failure": [1, 0, 0, 0],
+    "hbm-scale": [0, 0, 0, 0]
+}

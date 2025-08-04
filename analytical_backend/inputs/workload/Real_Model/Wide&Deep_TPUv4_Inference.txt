@@ -1,0 +1,9 @@
+HYBRID_DLRM 2
+7
+Embedding	-1	72	ALLTOALL	13631488	1	NONE	0	1	NONE	0	10
+Linear_Bottom1	-1	0	None	0	1	NONE	0	1	NONE	0	10
+Linear_Bottom2	-1	387	None	0	1	NONE	0	1	NONE	0	10
+Interaction	-1	0	None	4096	1	NONE	0	1	NONE	0	10
+Linear_Top1	-1	6181	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top2	-1	15252	None	0	1	NONE	0	1	NONE	0	10
+Linear_Top3	-1	14	None	0	1	NONE	0	1	NONE	0	10
