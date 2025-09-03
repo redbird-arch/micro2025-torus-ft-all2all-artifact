@@ -35,8 +35,9 @@ The directory structure is similar to analytical_backend.
 - Python + Anaconda
 - Astra-SIM with analytical and garnet backend (we have already included both within this repository)
 2. For real-machine experiments:
-- CANN 8.2.RC1
-- torch_npu == 2.1.0.post12
+- PyTorch 2.5.1
+- CUDA 12.8
+- NCCL 2.25.1
 
 ## Simulation Setup
 
@@ -66,25 +67,47 @@ bash run-all.sh
 ```
 
 ### Compile the source code (garnet backend)
-create a new conda environment
+build with docker 
 ```bash
-# create and activate the conda environment
-cd garnet_backend/
-conda env create -f astra-sim-garnet.yml
-conda activate astra-sim-garnet
-bash setup_protobuf.sh
+# Build the image (first time ~ several minutes)
+cd fault_tolerant_all_to_all_AE/
+docker build -t astrasim-garnet-ae:1.0 .
+
+# Compile inside the container while mounting your current repo
+docker run --rm -it \
+  -v "$PWD":/workspace \
+  -w /workspace \
+  astrasim-garnet-ae:1.0 \
+  bash -lc '
+    set -e
+    source /opt/conda/etc/profile.d/conda.sh
+    conda activate astra-sim-garnet
+
+    # Apply env + system-wide fallbacks
+    bash garnet_backend/setup_protobuf.sh
+
+    # Wipe SCons cache from previous failed detections
+    rm -rf garnet_backend/extern/network_backend/garnet/gem5_astra/build/Garnet_standalone \
+           garnet_backend/extern/network_backend/garnet/gem5_astra/build/variables/Garnet_standalone || true
+
+    # Build (path is under garnet_backend/)
+    ./garnet_backend/build/astra_garnet/build.sh -c
+  '
 ```
-compile astra-sim (-j8 by default)
-```bash
-./build/astra_garnet/build.sh -c 
-```
+
 ### Reproduce the simulation results in the paper (with garnet backend)
 reproducing all the experiments could take over two weeks (see multi-core settings in `Run_*.sh`, we **strongly suggest** the users to run three `Run_Google_comp_844_*` scripts with different machines in parallel because each of them could take 4 days)
 ```bash
-cd examples/scripts/
-# Note: run-all.sh will generate log files to correponding experiments, which can be deleted (e.g., Google_comp_444.log)
-bash run-all.sh
+# Inside Docker (recommended way)
+# Tip: you can add flags like --cpus=16 --memory=64g --shm-size=4g depending on your host.
+docker run --rm -it \
+  -v "$PWD":/workspace \
+  -w /workspace \
+  astrasim-garnet-ae:1.0 \
+  bash -lc "source /opt/conda/etc/profile.d/conda.sh && conda activate astra-sim-garnet && cd examples/scripts && bash run-all.sh"
+# Note: run-all.sh will generate log files for each experiment, which can be deleted (e.g., Google_comp_444.log)
 ```
+
 
 ## Reproduce the real machine results in the paper
 ```bash
@@ -96,5 +119,5 @@ bash Run_All_to_All.sh
 ```bash
 cd analytical_backend/Pictures
 conda activate astra-sim-analytical
-bash plot-figure.sh
+./plot-figure.sh
 ```
